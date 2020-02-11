@@ -222,16 +222,16 @@ class Jigsaw(object):
 		# Draw puzzle cuts
 		x = 0
 		y = 0
-		for i in range(0, int(self.thickness / self.step_z)):
+		for i in range(0, 1):
 			for cut in puzzle_cuts:
 				block.append(CNC.zsafe())
 				block.append(CNC.grapid(x + cut[0].x, y + cut[0].y))
 				block.append(CNC.zenter(0.0))
-				block.append(CNC.fmt("f", self.cut_feed))
-				block.append(CNC.zenter(-(i + 1) * self.step_z))
+				block.append(CNC.zenter(0))
 				for arc in cut:
 					if arc.r:
 						block.append(CNC.garc(arc.direction, x + arc.x, y + arc.y, r=arc.r))
+				block.append("( ---------- cut-here ---------- )")
 
 		blocks.append(block)
 
@@ -241,9 +241,8 @@ class Jigsaw(object):
 		block.append(CNC.zsafe())
 		block.append(CNC.grapid(x, y))
 
-		for i in range(0, int(self.thickness / self.step_z)):
-			block.append(CNC.fmt("f",self.cut_feed))
-			block.append(CNC.zenter(-(i + 1) * self.step_z))
+		for i in range(0, 1):
+			block.append(CNC.zenter(0))
 			block.append(CNC.gline(x + board_width, y))
 			block.append(CNC.gline(x + board_width, y + board_height))
 			block.append(CNC.gline(x, y + board_height))
