@@ -762,6 +762,7 @@ class Sender:
 
 			# Anything to receive?
 			if self.serial.inWaiting() or tosend is None:
+				time.sleep(0.0001)
 				try:
 					line = str(self.serial.readline().decode()).strip()
 				except:
