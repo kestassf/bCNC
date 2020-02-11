@@ -47,6 +47,7 @@ class Arc(object):
 			self.x = random.uniform(self.x - self._eq_threshold, self.x + self._eq_threshold)
 			self.y = random.uniform(self.y - self._eq_threshold, self.y + self._eq_threshold)
 			self.r = random.uniform(self.r - self._eq_threshold/3.0, self.r + self._eq_threshold/3.0)
+			self.r += 0.5
 			i += 1
 		Arc._used_arcs[self.key].append(copy.deepcopy(self))
 
